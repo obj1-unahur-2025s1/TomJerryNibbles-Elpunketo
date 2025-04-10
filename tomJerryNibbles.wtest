@@ -1,17 +1,67 @@
 import tomJerryNibbles.*
 
-describe "Grupo de test" {
-
-  test "test 1" {
-    assert.equals(100, 50+50)
+describe "Caso de prueba" {
+  test "velocidad maxima de tom es 10" {
+    assert.that(tom.velocidadMaxima() == 10)
   }
 
-  test "test 3" {
-    assert.that(true)
+  test "come a jerry y su velocidad maxima pasa a 15" {
+    (tom.comer(jerry))
+    assert.that(tom.velocidadMaxima() == 15.2 && tom.energia() == 102)
   }
 
-  test "test 4" {
-    assert.notThat(false)
+  test "corre 24 metros y su velocidad maxima es 14" {
+    (tom.comer(jerry))
+    tom.correr(24)
+    assert.that(tom.velocidadMaxima() == 14 && tom.energia() == 90)
   }
 
+  test "come a nibbles y su velocidad maxima es 18.7" {
+    tom.comer(jerry)
+    tom.comer(nibbles)
+    tom.correr(24)
+    assert.that(tom.velocidadMaxima() == 18.7 && tom.energia() == 137)
+  }
+
+   test "jerry cumple años, tom lo vuelve a comer y su energia es 20" {
+    tom.comer(jerry)
+    tom.comer(nibbles)
+    tom.correr(24)
+    jerry.cumplirAños()
+    tom.comer(jerry)
+    assert.that(tom.velocidadMaxima() == 25.9 && tom.energia() == 209)
+  }
+
+   test "corre 38 metros y pasa a 24 de velocidad maxima y 190 de energia" {
+    tom.comer(jerry)
+    tom.comer(nibbles)
+    tom.correr(24)
+    jerry.cumplirAños()
+    tom.comer(jerry)
+    tom.correr(38)
+    assert.that(tom.velocidadMaxima() == 24 && tom.energia() == 190)
+  }
+}
+
+describe "casos de prueba"{
+  test "¿Puede cazar a Micky o a Jerry?"{
+    tom.comer(jerry)
+    tom.comer(nibbles)
+    tom.correr(24)
+    jerry.cumplirAños()
+    tom.comer(jerry)
+    tom.correr(38)
+    assert.that(tom.puedeCazar(170)) //micky esta a 170, tiene de energia actualmente 190 asi que puede cazarlo
+    assert.notThat(tom.puedeCazar(200)) //jerry esta a 200, tiene de energia actualmente 190 asi que no puede cazarlo
+  }
+  test "cazar a micky"{
+    tom.comer(jerry)
+    tom.comer(nibbles)
+    tom.correr(24)
+    jerry.cumplirAños()
+    tom.comer(jerry)
+    tom.correr(38)
+    tom.cazar(micky,170)
+    assert.that(tom.puedeCazar(170)) //micky esta a 170, tiene de energia actualmente 190 asi que puede cazarlo
+  }
 }
